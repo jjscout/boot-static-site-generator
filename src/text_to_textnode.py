@@ -53,13 +53,7 @@ def split_nodes_image(old_nodes: List[TextNode]) -> List[TextNode]:
                         text_type=TextType.TEXT,
                     )
                 )
-            nn.append(
-                TextNode(
-                    text=image[0],
-                    text_type=TextType.IMAGE,
-                    url = image[1]
-                )
-            )
+            nn.append(TextNode(text=image[0], text_type=TextType.IMAGE, url=image[1]))
             original_text = sections[1]
         if original_text != "":
             nn.append(
@@ -69,6 +63,7 @@ def split_nodes_image(old_nodes: List[TextNode]) -> List[TextNode]:
                 )
             )
     return nn
+
 
 def split_nodes_link(old_nodes: List[TextNode]) -> List[TextNode]:
     nn = []
@@ -93,13 +88,7 @@ def split_nodes_link(old_nodes: List[TextNode]) -> List[TextNode]:
                         text_type=TextType.TEXT,
                     )
                 )
-            nn.append(
-                TextNode(
-                    text=link[0],
-                    text_type=TextType.LINK,
-                    url = link[1]
-                )
-            )
+            nn.append(TextNode(text=link[0], text_type=TextType.LINK, url=link[1]))
             original_text = sections[1]
         if original_text:
             nn.append(
@@ -110,3 +99,13 @@ def split_nodes_link(old_nodes: List[TextNode]) -> List[TextNode]:
             )
 
     return nn
+
+
+def text_to_textnodes(text: str) -> List[TextNode]:
+    nodes = [TextNode(text=text, text_type=TextType.TEXT)]
+    nodes = split_nodes_delimiter(nodes, "**", TextType.BOLD)
+    nodes = split_nodes_delimiter(nodes, "_", TextType.ITALIC)
+    nodes = split_nodes_delimiter(nodes, "`", TextType.CODE)
+    nodes = split_nodes_image(nodes)
+    nodes = split_nodes_link(nodes)
+    return nodes
