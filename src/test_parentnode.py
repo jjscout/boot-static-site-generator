@@ -23,7 +23,7 @@ class TestParentNode(unittest.TestCase):
             )
             self.assertEqual(
                 node.to_html(),
-                "<p>content1 content2 content3</p>",
+                "<p>content1content2content3</p>",
             )
         with self.subTest("simple nested parent"):
             node = ParentNode(
