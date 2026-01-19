@@ -1,9 +1,10 @@
 from textnode import TextNode, TextType
+from path_tools import copy_contents
 
 
 def main():
-    tn = TextNode("dummy", TextType.BOLD)
-    print(tn)
+    copy_contents("static", "public")
+
 
 
 if __name__ == "__main__":
