@@ -2,6 +2,7 @@ import unittest
 from markdown_tools import (
     extract_markdown_images,
     extract_markdown_links,
+    extract_title,
 )
 
 
@@ -25,6 +26,20 @@ class TestMarkdownTools(unittest.TestCase):
             "This is text with an ![img](https://i.imgur.com/lie.png)"
         )
         self.assertListEqual([], matches)
+    
+    def test_extract_title(self):
+        with self.subTest("happy flow"):
+            h1 = extract_title("# Hello")
+            self.assertEqual(h1, "Hello")
+        with self.subTest("two titles"):
+            h1 = extract_title("# Hello\n# hwat")
+            self.assertEqual(h1, "Hello")
+        with self.subTest("no title"):
+            with self.assertRaises(ValueError):
+                h1 = extract_title("## Hello")
+
+    
+
 
 
 if __name__ == "__main__":
