@@ -35,7 +35,7 @@ def block_to_block_type(block: str) -> Blocktype:
     if block.startswith("```\n") and block.endswith("```") and len(lines) > 1:
         return Blocktype.CODE
     if block.startswith("> "):
-        if any(not line.startswith("> ") for line in lines):
+        if any(not (line.startswith(">")) for line in lines):
             return Blocktype.PARAGRAPH
         return Blocktype.QUOTE
     if block.startswith("- "):
